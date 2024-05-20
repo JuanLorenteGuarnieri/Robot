@@ -9,7 +9,7 @@ function normalizePi(angle) {
   return angle;
 }
 
-const UpdateCameraPosition = ({ robotRef }) => {
+const UpdateCameraPosition = ({ robotRef, map }) => {
   const { camera } = useThree();
   const [robotPosition, setRobotPosition] = useState({ x: 0, y: 0, z: 0 });
   const [robotRotation, setRobotRotation] = useState({ y: 0 });
@@ -69,6 +69,7 @@ const UpdateCameraPosition = ({ robotRef }) => {
       const x = radius * Math.sin(th);
       const z = radius * Math.cos(th);
       camera.position.set(x + robotPosition.x, 2.5, z + robotPosition.z);
+      camera.up.set(0, 1, 0);
       camera.lookAt(robotPosition.x, 2.0, robotPosition.z);
     } else if (typeCamera === "Front") {
       const radius = 0.7; // Define el radio de la órbita
@@ -77,10 +78,12 @@ const UpdateCameraPosition = ({ robotRef }) => {
       const x = radius * Math.sin(th);
       const z = radius * Math.cos(th);
       camera.position.set(x + robotPosition.x, distance_from_floor - 0.1, z + robotPosition.z);
+      camera.up.set(0, 1, 0);
       camera.lookAt(x * 5 + robotPosition.x, distance_from_floor, z * 5 + robotPosition.z);
     } else if (typeCamera === "Zenithal") {
-      camera.position.set(0, 40, 0);
-      camera.lookAt(0, 0, 0);
+      camera.position.set(-map.sizeX * 2, map.sizeY * 5.25, map.sizeY * 2);
+      camera.up.set(0, 0, 1);
+      camera.lookAt(-map.sizeX * 2, 0, map.sizeY * 2);
     } else if (typeCamera === "Wheel") {
       const radius = 1.4; // Define el radio de la órbita
       const distance_from_floor = 0.6;
@@ -91,6 +94,7 @@ const UpdateCameraPosition = ({ robotRef }) => {
       const x_look = radius * 4 * Math.sin(th_look);
       const z_look = radius * 4 * Math.cos(th_look);
       camera.position.set(x_pos + robotPosition.x, distance_from_floor, z_pos + robotPosition.z);
+      camera.up.set(0, 1, 0);
       camera.lookAt(x_look + robotPosition.x, distance_from_floor, z_look + robotPosition.z);
     } else if (typeCamera === "Basket") {
       const radius = 2.5; // Define el radio de la órbita
@@ -99,6 +103,7 @@ const UpdateCameraPosition = ({ robotRef }) => {
       const x_pos = radius * Math.sin(th);
       const z_pos = radius * Math.cos(th);
       camera.position.set(x_pos + robotPosition.x, distance_from_floor, z_pos + robotPosition.z);
+      camera.up.set(0, 1, 0);
       camera.lookAt(robotPosition.x, distance_from_floor - 0.1, robotPosition.z);
     }
   }, [robotPosition, robotRotation, typeCamera]);

@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { Grid, MeshReflectorMaterial } from '@react-three/drei';
 import { Robot } from '../../public/models/Robot';
 import UpdateCameraPosition from './UpdateCameraPosition';
+import MapComponent from './MapComponent';
 
 // Función para normalizar ángulos
 function normalizePi(angle) {
@@ -12,6 +13,22 @@ function normalizePi(angle) {
   while (angle < -Math.PI) angle += 2 * Math.PI;
   return angle;
 }
+
+const convertCoordinates = (x_cell, y_cell) => {
+  const x_m = x_cell * 0.4 + 0.2;
+  const y_m = y_cell * 0.4 + 0.2;
+  return [x_m, y_m];
+};
+
+const convertCoordinate = (cell) => {
+  const m = cell * 0.4 + 0.2;
+  return m;
+};
+
+const convertCoordinateM = (cell) => {
+  const m = cell * 4 + 2;
+  return m;
+};
 
 // Constantes de control
 const W_MAX = 1;
@@ -108,9 +125,9 @@ class RobotClass {
     this.basketRotation = normalizePi(this.basketRotation);
 
     return {
-      x: this.x,
+      x: -this.x,
       y: this.y,
-      theta: normalizePi(-this.theta + Math.PI / 2),
+      theta: normalizePi(this.theta - Math.PI / 2),
       leftWheelRotation: this.leftWheelRotation,
       rightWheelRotation: this.rightWheelRotation,
       basketRotation: this.basketRotation
@@ -199,8 +216,8 @@ function updateRobotPosition(robotRef, rightWheelRef, leftWheelRef, basketRef, n
 }
 
 const RobotSimulation = () => {
-  const init_direction = 90
-  const robot = new RobotClass(0, 0, init_direction, 0.12223, 0.02731);
+  const init_direction = 180
+  const robot = new RobotClass(convertCoordinate(7), convertCoordinate(0), init_direction, 0.12223, 0.02731);
   const robotRefs = useRef({
     robot: null,
     rightWheel: null,
@@ -209,15 +226,23 @@ const RobotSimulation = () => {
   });
   const [controller, setController] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
+  const [map, setMap] = useState(null);
 
 
 
   const waypoints = [
-    [0.4, 0.6, Math.PI / 2],
-    [1.2, 0.8, Math.PI / 4],
-    [2, 1, -Math.PI / 4],
-    [1.4, -0.6, Math.PI],
-    [0.4, 0.6, Math.PI / 2]
+    [convertCoordinate(7), convertCoordinate(0), Math.PI],
+    [convertCoordinate(6), convertCoordinate(0), Math.PI],
+    [convertCoordinate(5), convertCoordinate(0), Math.PI],
+    [convertCoordinate(4), convertCoordinate(0), Math.PI],
+    [convertCoordinate(4), convertCoordinate(1), Math.PI / 2],
+    [convertCoordinate(4), convertCoordinate(2), Math.PI / 2],
+    [convertCoordinate(4), convertCoordinate(3), Math.PI / 2],
+    [convertCoordinate(3), convertCoordinate(3), Math.PI],
+    [convertCoordinate(3), convertCoordinate(2), -Math.PI / 2],
+    [convertCoordinate(3), convertCoordinate(1), -Math.PI / 2],
+    [convertCoordinate(2), convertCoordinate(1), Math.PI],
+    [convertCoordinate(1), convertCoordinate(1), Math.PI],
   ];
 
   const distancias = waypoints.slice(0, -1).map((wp, i) => {
@@ -295,6 +320,8 @@ const RobotSimulation = () => {
           camera={{ position: [200, 80, 200], fov: 50, zoom: 1 }} // Ajusta según sea necesario
           near={0.1} far={1000}
         >
+          {/* <MapComponent mapDescriptionFile="public\maps\mapa_CARRERA.txt" map={map} setMap={setMap} /> */}
+          <MapComponent mapDescriptionFile="public\maps\mapa_CARRERA.txt" map={map} setMap={setMap} />
 
           <pointLight castShadow={true} position={[-200, 100, 0]} intensity={35} decay={0.8}
             shadow-bias={-0.005} />
@@ -307,13 +334,8 @@ const RobotSimulation = () => {
 
           {/* <OrbitControls /> */}
           <Robot ref={robotRefs} receiveShadow={true} castShadow={true} />
-          <UpdateCameraPosition robotRef={robotRefs.current.robot} />
+          <UpdateCameraPosition robotRef={robotRefs.current.robot} map={map} />
           {/* "Behind" or "Front" or "Static" or "Zenithal" or "Wheel" or "Basket" */}
-          {/* <Grid position={[0, 0.1, 0]} cellSize={55} cellColor={"red"} sectionColor={"yellow"} cellThickness={0.1} infiniteGrid={true} fadeDistance={1000}
-
-            width={55} height={555} widthSegments={1} heightSegments={1}
-          /> */}
-          <Grid position={[0, 0.1, 0]} scale={[4, 1, 4]} args={[16, 8, 1, 1]} infiniteGrid={false} fadeDistance={1000} />
           <mesh scale={999} rotation={[-Math.PI / 2, 0, 0]} receiveShadow={true} castShadow={true}>
             <planeGeometry />
             <meshStandardMaterial color="white" />
