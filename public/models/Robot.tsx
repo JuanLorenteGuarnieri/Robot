@@ -175,49 +175,19 @@ type GLTFResult = GLTF & {
     ultrasonic005: THREE.Mesh
     ultrasonic006: THREE.Mesh
     ultrasonic007: THREE.Mesh
-    ['4x_AA_Alkaline_15_V_Battery_Pack']: THREE.Mesh
-    ['4x_AA_Alkaline_15_V_Battery_Pack001']: THREE.Mesh
+    battery_down: THREE.Mesh
+    battery_down001: THREE.Mesh
   }
   materials: {
-    ['Material.001']: THREE.MeshStandardMaterial
-    ['Material.008']: THREE.MeshStandardMaterial
-    ['Material.011']: THREE.MeshStandardMaterial
-    ['Material.012']: THREE.MeshStandardMaterial
-    ['Material.009']: THREE.MeshStandardMaterial
-    ['Material.003']: THREE.MeshStandardMaterial
-    ['Material.004']: THREE.MeshStandardMaterial
-    ['Material.031']: THREE.MeshStandardMaterial
-    ['Material.032']: THREE.MeshStandardMaterial
-    ['Material.033']: THREE.MeshStandardMaterial
-    ['Material.031']: THREE.MeshStandardMaterial
-    Material: THREE.MeshStandardMaterial
-    ['Material.034']: THREE.MeshStandardMaterial
-    ['Material.035']: THREE.MeshStandardMaterial
-    ['Material.028']: THREE.MeshStandardMaterial
-    material_0: THREE.MeshStandardMaterial
-    ['Material.002']: THREE.MeshStandardMaterial
-    ['Material.007']: THREE.MeshStandardMaterial
-    ['Material.005']: THREE.MeshStandardMaterial
-    ['Material.025']: THREE.MeshStandardMaterial
-    ['Material.026']: THREE.MeshStandardMaterial
-    ['Material.027']: THREE.MeshStandardMaterial
-    ['SOLID-LIGHT_BLUISH_GRAY']: THREE.MeshStandardMaterial
-    ['Material.013']: THREE.MeshStandardMaterial
-    ['Material.014']: THREE.MeshStandardMaterial
-    ['Material.015']: THREE.MeshStandardMaterial
-    ['Material.016']: THREE.MeshStandardMaterial
-    ['Material.017']: THREE.MeshStandardMaterial
-    ['SOLID-LIGHT_BLUISH_GRAY.003']: THREE.MeshStandardMaterial
-    ['SOLID-LIGHT_BLUISH_GRAY.004']: THREE.MeshStandardMaterial
-    ['SOLID-LIGHT_BLUISH_GRAY.005']: THREE.MeshStandardMaterial
-    ['Material.006']: THREE.MeshStandardMaterial
-    ['Material.018']: THREE.MeshStandardMaterial
-    ['Material.019']: THREE.MeshStandardMaterial
-    ['Material.020']: THREE.MeshStandardMaterial
-    ['Material.021']: THREE.MeshStandardMaterial
-    ['Material.022']: THREE.MeshStandardMaterial
-    ['Material.023']: THREE.MeshStandardMaterial
-    ['Material.024']: THREE.MeshStandardMaterial
+    Grey: THREE.MeshStandardMaterial
+    Black: THREE.MeshStandardMaterial
+    Dark_grey: THREE.MeshStandardMaterial
+    Orange: THREE.MeshStandardMaterial
+    Red: THREE.MeshStandardMaterial
+    Neumatic: THREE.MeshStandardMaterial
+    White: THREE.MeshStandardMaterial
+    Glass: THREE.MeshStandardMaterial
+    Mirror: THREE.MeshStandardMaterial
   }
 }
 
@@ -252,189 +222,190 @@ export const Robot = forwardRef<Group, RobotProps>((props, ref) => {
   return (
     <group ref={groupRef} {...props} dispose={null} scale={0.01}>
       <group ref={basketRef} position={[-0.094, 36.046, 42.275]} scale={8.478}>
-        <mesh geometry={nodes.servo_motor001.geometry} material={materials['Material.001']} rotation={[-2.463, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes.axel_4.geometry} material={nodes.axel_4.material} position={[-4.612, -0.033, -11.354]} rotation={[0, 0, -Math.PI]} scale={0.118} />
-        <mesh geometry={nodes.axel_5.geometry} material={nodes.axel_5.material} position={[0.011, -0.033, -11.354]} rotation={[0, 0, -Math.PI]} scale={0.118} />
-        <mesh geometry={nodes.axel_6.geometry} material={nodes.axel_6.material} position={[4.634, -0.033, -11.354]} rotation={[0, 0, -Math.PI]} scale={0.118} />
-        <mesh geometry={nodes.axel_conector_angled.geometry} material={nodes.axel_conector_angled.material} position={[1.852, -0.033, -11.354]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.axel_conector_angled001.geometry} material={nodes.axel_conector_angled001.material} position={[-1.83, -0.033, -11.354]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.brick_2.geometry} material={nodes.brick_2.material} position={[-6.141, 0.008, -0.015]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
-        <mesh geometry={nodes.brick_2001.geometry} material={nodes.brick_2001.material} position={[6.212, 0.008, -11.354]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
-        <mesh geometry={nodes.brick_2002.geometry} material={nodes.brick_2002.material} position={[-6.141, 0.008, -11.354]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
-        <mesh geometry={nodes.brick_2003.geometry} material={nodes.brick_2003.material} position={[6.212, 0.008, -0.015]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
-        <mesh geometry={nodes.brick_5.geometry} material={nodes.brick_5.material} position={[-6.141, 1.146, -1.89]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.brick_5001.geometry} material={nodes.brick_5001.material} position={[6.212, 1.146, -1.89]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.brick_7.geometry} material={nodes.brick_7.material} position={[-6.141, 0.005, -4.74]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.brick_7001.geometry} material={nodes.brick_7001.material} position={[6.212, 0.005, -4.74]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.brick_7002.geometry} material={nodes.brick_7002.material} position={[-6.141, 1.137, -8.52]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.brick_7003.geometry} material={nodes.brick_7003.material} position={[6.212, 1.137, -8.52]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.pin_sphere.geometry} material={nodes.pin_sphere.material} position={[-1.83, 0.564, -11.354]} rotation={[2.361, -0.099, 0.099]} scale={-0.118} />
-        <mesh geometry={nodes.pin_sphere001.geometry} material={nodes.pin_sphere001.material} position={[1.852, 0.564, -11.354]} rotation={[2.361, -0.099, 0.099]} scale={-0.118} />
-        <mesh geometry={nodes.axel.geometry} material={nodes.axel.material} position={[0.035, -0.007, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes.axel_2.geometry} material={nodes.axel_2.material} position={[6.179, -0.006, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes.axel_3.geometry} material={nodes.axel_3.material} position={[-6.124, -0.006, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes.axel_connector.geometry} material={nodes.axel_connector.material} position={[-4.71, -0.019, 0.007]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
-        <mesh geometry={nodes.axel_connector001.geometry} material={nodes.axel_connector001.material} position={[4.78, -0.019, 0.007]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.servo_motor001.geometry} material={materials.Orange} rotation={[-2.463, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes.axel_4.geometry} material={materials.Grey} position={[-4.612, -0.033, -11.354]} rotation={[0, 0, -Math.PI]} scale={0.118} />
+        <mesh geometry={nodes.axel_5.geometry} material={materials.Grey} position={[0.011, -0.033, -11.354]} rotation={[0, 0, -Math.PI]} scale={0.118} />
+        <mesh geometry={nodes.axel_6.geometry} material={materials.Grey} position={[4.634, -0.033, -11.354]} rotation={[0, 0, -Math.PI]} scale={0.118} />
+        <mesh geometry={nodes.axel_conector_angled.geometry} material={materials.Black} position={[1.852, -0.033, -11.354]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.axel_conector_angled001.geometry} material={materials.Black} position={[-1.83, -0.033, -11.354]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.brick_2.geometry} material={materials.Dark_grey} position={[-6.141, 0.008, -0.015]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
+        <mesh geometry={nodes.brick_2001.geometry} material={materials.Dark_grey} position={[6.212, 0.008, -11.354]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
+        <mesh geometry={nodes.brick_2002.geometry} material={materials.Dark_grey} position={[-6.141, 0.008, -11.354]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
+        <mesh geometry={nodes.brick_2003.geometry} material={materials.Dark_grey} position={[6.212, 0.008, -0.015]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
+        <mesh geometry={nodes.brick_5.geometry} material={materials.Grey} position={[-6.141, 1.146, -1.89]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.brick_5001.geometry} material={materials.Grey} position={[6.212, 1.146, -1.89]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.brick_7.geometry} material={materials.Grey} position={[-6.141, 0.005, -4.74]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.brick_7001.geometry} material={materials.Grey} position={[6.212, 0.005, -4.74]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.brick_7002.geometry} material={materials.Grey} position={[-6.141, 1.137, -8.52]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.brick_7003.geometry} material={materials.Grey} position={[6.212, 1.137, -8.52]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.pin_sphere.geometry} material={materials.Black} position={[-1.83, 0.564, -11.354]} rotation={[2.361, -0.099, 0.099]} scale={-0.118} />
+        <mesh geometry={nodes.pin_sphere001.geometry} material={materials.Black} position={[1.852, 0.564, -11.354]} rotation={[2.361, -0.099, 0.099]} scale={-0.118} />
+        <mesh geometry={nodes.axel.geometry} material={materials.Black} position={[0.035, -0.007, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes.axel_2.geometry} material={materials.Grey} position={[6.179, -0.006, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes.axel_3.geometry} material={materials.Grey} position={[-6.124, -0.006, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes.axel_connector.geometry} material={materials.Black} position={[-4.71, -0.019, 0.007]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
+        <mesh geometry={nodes.axel_connector001.geometry} material={materials.Black} position={[4.78, -0.019, 0.007]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={0.118} />
       </group>
       <group ref={leftWheelRef} position={[31.917, 27.979, -0.006]} rotation={[0, 0, 0]} scale={8.478}>
-        <mesh geometry={nodes['32269_Black_Technic_Gear_20_Tooth_Double_Bevel001'].geometry} material={nodes['32269_Black_Technic_Gear_20_Tooth_Double_Bevel001'].material} position={[4.372, -0.039, -0.03]} rotation={[0, 0, -Math.PI]} scale={0.118} />
-        <mesh geometry={nodes['3650_Black_Technic_Gear_24_Tooth_Crown_Type_III_(x_pattern)001'].geometry} material={nodes['3650_Black_Technic_Gear_24_Tooth_Crown_Type_III_(x_pattern)001'].material} position={[1.663, -0.02, -0.02]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
-        <mesh geometry={nodes.axel001.geometry} material={nodes.axel001.material} position={[1.432, -0.005, -0.029]} rotation={[0, 0, -Math.PI]} scale={0.118} />
-        <mesh geometry={nodes.motor001.geometry} material={materials['Material.008']} rotation={[-1.571, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes.wheel004.geometry} material={materials['Material.011']} position={[3.301, -0.009, -0.023]} scale={0.118} />
-        <mesh geometry={nodes.wheel005.geometry} material={materials['Material.012']} position={[3.325, -0.005, 0.032]} scale={0.118} />
+        <mesh geometry={nodes['32269_Black_Technic_Gear_20_Tooth_Double_Bevel001'].geometry} material={materials.Grey} position={[4.372, -0.039, -0.03]} rotation={[0, 0, -Math.PI]} scale={0.118} />
+        <mesh geometry={nodes['3650_Black_Technic_Gear_24_Tooth_Crown_Type_III_(x_pattern)001'].geometry} material={materials.Grey} position={[1.663, -0.02, -0.02]} rotation={[Math.PI, Math.PI / 2, 0]} scale={0.118} />
+        <mesh geometry={nodes.axel001.geometry} material={materials.Grey} position={[1.432, -0.005, -0.029]} rotation={[0, 0, -Math.PI]} scale={0.118} />
+        <mesh geometry={nodes.motor001.geometry} material={materials.Red} rotation={[-1.571, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes.wheel004.geometry} material={materials.Neumatic} position={[3.301, -0.009, -0.023]} scale={0.118} />
+        <mesh geometry={nodes.wheel005.geometry} material={materials.Grey} position={[3.325, -0.005, 0.032]} scale={0.118} />
       </group>
       <group ref={rightWheelRef} position={[-32.084, 27.979, -0.006]} rotation={[0, 0, 0]} scale={8.478}>
-        <mesh geometry={nodes['32269_Black_Technic_Gear_20_Tooth_Double_Bevel'].geometry} material={nodes['32269_Black_Technic_Gear_20_Tooth_Double_Bevel'].material} position={[-4.39, -0.039, 0.002]} rotation={[Math.PI, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes['3650_Black_Technic_Gear_24_Tooth_Crown_Type_III_(x_pattern)'].geometry} material={nodes['3650_Black_Technic_Gear_24_Tooth_Crown_Type_III_(x_pattern)'].material} position={[-1.681, -0.02, -0.008]} rotation={[Math.PI, -Math.PI / 2, 0]} scale={0.118} />
-        <mesh geometry={nodes.axel002.geometry} material={nodes.axel002.material} position={[-1.45, -0.005, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes.motor002.geometry} material={materials['Material.009']} rotation={[-1.571, 0, 0]} scale={0.118} />
-        <mesh geometry={nodes.wheel.geometry} material={materials['Material.003']} position={[-3.32, -0.01, 0.005]} rotation={[Math.PI, 0, Math.PI]} scale={0.118} />
-        <mesh geometry={nodes.wheel001.geometry} material={materials['Material.004']} position={[-3.32, -0.01, 0.005]} rotation={[Math.PI, 0, Math.PI]} scale={0.118} />
+        <mesh geometry={nodes['32269_Black_Technic_Gear_20_Tooth_Double_Bevel'].geometry} material={materials.Grey} position={[-4.39, -0.039, 0.002]} rotation={[Math.PI, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes['3650_Black_Technic_Gear_24_Tooth_Crown_Type_III_(x_pattern)'].geometry} material={materials.Grey} position={[-1.681, -0.02, -0.008]} rotation={[Math.PI, -Math.PI / 2, 0]} scale={0.118} />
+        <mesh geometry={nodes.axel002.geometry} material={materials.Grey} position={[-1.45, -0.005, 0.001]} rotation={[Math.PI, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes.motor002.geometry} material={materials.Red} rotation={[-1.571, 0, 0]} scale={0.118} />
+        <mesh geometry={nodes.wheel.geometry} material={materials.Grey} position={[-3.32, -0.01, 0.005]} rotation={[Math.PI, 0, Math.PI]} scale={0.118} />
+        <mesh geometry={nodes.wheel001.geometry} material={materials.Neumatic} position={[-3.32, -0.01, 0.005]} rotation={[Math.PI, 0, Math.PI]} scale={0.118} />
       </group>
       <group position={[-13.428, 90.108, 6.724]} rotation={[0.333, -0.001, 3.119]} scale={8.478}>
         <group position={[0.001, -0.041, 0.118]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
             <group position={[0.611, 4.734, -0.009]} scale={[0.633, 0.284, 0.284]}>
-              <mesh geometry={nodes.Object_18.geometry} material={materials['Material.031']} />
-              <mesh geometry={nodes.Object_19.geometry} material={materials.Material} />
-              <mesh geometry={nodes.Object_20.geometry} material={materials['Material.034']} />
+              <mesh geometry={nodes.Object_18.geometry} material={materials.Black} />
+              <mesh geometry={nodes.Object_19.geometry} material={materials.Black} />
+              <mesh geometry={nodes.Object_20.geometry} material={materials.Black} />
             </group>
             <group position={[0.943, 0.586, -0.396]} rotation={[-0.498, 0, 0]} scale={[0.633, 0.284, 0.284]}>
-              <mesh geometry={nodes.Object_24.geometry} material={materials['Material.031']} />
-              <mesh geometry={nodes.Object_25.geometry} material={materials['Material.031']} />
+              <mesh geometry={nodes.Object_24.geometry} material={materials.Black} />
+              <mesh geometry={nodes.Object_25.geometry} material={materials.Black} />
             </group>
-            <mesh geometry={nodes.Object_8.geometry} material={materials['Material.031']} position={[0, 5.342, 0]} />
-            <mesh geometry={nodes.Object_10.geometry} material={materials['Material.031']} position={[-1.223, 6.152, -0.024]} scale={[0.527, 0.527, 0.549]} />
-            <mesh geometry={nodes.Object_12.geometry} material={materials['Material.032']} position={[-1.223, 6.152, -0.024]} scale={[0.527, 0.527, 0.549]} />
-            <mesh geometry={nodes.Object_14.geometry} material={materials['Material.033']} position={[-3.263, 7.03, -0.024]} scale={[0.527, 0.527, 0.549]} />
-            <mesh geometry={nodes.Object_27.geometry} material={materials['Material.035']} position={[2.081, 5.098, 0.15]} scale={[0.992, 0.287, 0.992]} />
-            <mesh geometry={nodes.Object_6.geometry} material={materials['Material.031']} position={[0, 5.107, 0]} />
-            <mesh geometry={nodes.Object_4.geometry} material={materials['Material.028']} position={[2.893, 6.973, -0.116]} rotation={[0, 0, -0.009]} scale={3.028} />
-            <mesh geometry={nodes.Object_22.geometry} material={materials['Material.035']} position={[-0.965, 4.732, -0.003]} rotation={[Math.PI, 0, -Math.PI / 2]} scale={[0.218, 1.576, 0.218]} />
-            <mesh geometry={nodes.Object_16.geometry} material={materials.material_0} position={[-0.97, 7.033, -0.03]} scale={0.256} />
+            <mesh geometry={nodes.Object_8.geometry} material={materials.Black} position={[0, 5.342, 0]} />
+            <mesh geometry={nodes.Object_10.geometry} material={materials.Dark_grey} position={[-1.223, 6.152, -0.024]} scale={[0.527, 0.527, 0.549]} />
+            <mesh geometry={nodes.Object_12.geometry} material={materials.Black} position={[-1.223, 6.152, -0.024]} scale={[0.527, 0.527, 0.549]} />
+            <mesh geometry={nodes.Object_14.geometry} material={materials.Grey} position={[-3.263, 7.03, -0.024]} scale={[0.527, 0.527, 0.549]} />
+            <mesh geometry={nodes.Object_27.geometry} material={materials.Grey} position={[2.081, 5.098, 0.15]} scale={[0.992, 0.287, 0.992]} />
+            <mesh geometry={nodes.Object_6.geometry} material={materials.Black} position={[0, 5.107, 0]} />
+            <mesh geometry={nodes.Object_4.geometry} material={materials.White} position={[2.893, 6.973, -0.116]} rotation={[0, 0, -0.009]} scale={3.028} />
+            <mesh geometry={nodes.Object_22.geometry} material={materials.Black} position={[-0.965, 4.732, -0.003]} rotation={[Math.PI, 0, -Math.PI / 2]} scale={[0.218, 1.576, 0.218]} />
+            <mesh geometry={nodes.Object_16.geometry} material={materials.White} position={[-0.97, 7.033, -0.03]} scale={0.256} />
           </group>
         </group>
       </group>
-      <mesh geometry={nodes.pin_2_one_side003.geometry} material={nodes.pin_2_one_side003.material} position={[16.103, 102.398, 17.842]} rotation={[2.349, -0.093, 0.099]} />
-      <mesh geometry={nodes.BrickPi3.geometry} material={nodes.BrickPi3.material} position={[0, 111.451, -57.635]} scale={[34.5, 31.75, 47.6]} />
-      <mesh geometry={nodes.servo_motor.geometry} material={materials['Material.002']} position={[0, 45.411, -11.628]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={nodes.motor.geometry} material={materials['Material.007']} position={[31.903, 44.646, -52.354]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={nodes.motor003.geometry} material={materials['Material.005']} position={[-32.098, 44.646, -52.354]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={nodes.axel003.geometry} material={nodes.axel003.material} position={[0.2, 83.801, 37.896]} />
-      <mesh geometry={nodes.axel_3001.geometry} material={nodes.axel_3001.material} position={[39.902, 71.31, 150.54]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.axel_3002.geometry} material={nodes.axel_3002.material} position={[39.902, 71.31, 166.723]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.axel_3003.geometry} material={nodes.axel_3003.material} position={[-39.902, 71.31, 166.723]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.axel_3004.geometry} material={nodes.axel_3004.material} position={[-39.902, 71.31, 150.54]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam11002.geometry} material={nodes.beam11002.material} position={[0, 67.709, -5.297]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam11003.geometry} material={nodes.beam11003.material} position={[0, 67.621, 10.448]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3004.geometry} material={nodes.beam_3004.material} position={[-31.969, 67.621, -21.448]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3005.geometry} material={nodes.beam_3005.material} position={[31.969, 67.621, -21.448]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3006.geometry} material={nodes.beam_3006.material} position={[24.105, 83.841, 50.209]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3_cross003.geometry} material={nodes.beam_3_cross003.material} position={[-16.21, 51.652, 42.743]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3_cross004.geometry} material={nodes.beam_3_cross004.material} position={[16.21, 51.652, 42.743]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3_double.geometry} material={nodes.beam_3_double.material} position={[-39.902, 51.377, -21.452]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3_double001.geometry} material={nodes.beam_3_double001.material} position={[39.902, 51.377, -21.452]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.lift_arm_5002.geometry} material={nodes.lift_arm_5002.material} position={[-8.172, 55.017, 29.641]} rotation={[Math.PI, 0, Math.PI / 2]} />
-      <mesh geometry={nodes.lift_arm_5003.geometry} material={nodes.lift_arm_5003.material} position={[8.172, 55.017, 29.641]} rotation={[Math.PI, 0, Math.PI / 2]} />
-      <mesh geometry={nodes.lift_arm_5005.geometry} material={nodes.lift_arm_5005.material} position={[35.518, 83.807, 5.627]} rotation={[Math.PI, 0, Math.PI]} />
-      <mesh geometry={nodes.lift_arm_7.geometry} material={nodes.lift_arm_7.material} position={[-32.665, 59.459, 9.097]} rotation={[0, 0, Math.PI]} />
-      <mesh geometry={nodes.lift_arm_7001.geometry} material={nodes.lift_arm_7001.material} position={[32.665, 59.459, 9.097]} />
-      <mesh geometry={nodes.lift_arm_7002.geometry} material={nodes.lift_arm_7002.material} position={[6.65, 91.827, 25.184]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.pin_2_double.geometry} material={nodes.pin_2_double.material} position={[-32.081, 83.807, 37.97]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.pin_2_double001.geometry} material={nodes.pin_2_double001.material} position={[32.081, 83.807, 37.97]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3008.geometry} material={nodes.beam_3008.material} position={[16.28, 83.877, -5.635]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_5002.geometry} material={nodes.beam_5002.material} position={[-32.081, 83.807, 10.289]} />
-      <mesh geometry={nodes.beam_9001.geometry} material={nodes.beam_9001.material} position={[-32.081, 75.756, 10.383]} />
-      <mesh geometry={nodes.beam_9002.geometry} material={nodes.beam_9002.material} position={[-24.018, 75.756, -37.75]} />
-      <mesh geometry={nodes.beam_9003.geometry} material={nodes.beam_9003.material} position={[32.081, 75.756, 10.383]} />
-      <mesh geometry={nodes.beam_9004.geometry} material={nodes.beam_9004.material} position={[24.018, 75.756, -37.75]} />
-      <mesh geometry={nodes.beam_5003.geometry} material={nodes.beam_5003.material} position={[0, 75.712, -5.297]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.axel_2002.geometry} material={nodes.axel_2002.material} position={[0, 123.936, 25.872]} />
-      <mesh geometry={nodes.axel_2003.geometry} material={nodes.axel_2003.material} position={[0, 123.936, 9.878]} />
-      <mesh geometry={nodes.beam_3_double004.geometry} material={nodes.beam_3_double004.material} position={[-7.879, 123.936, 17.871]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_3_double005.geometry} material={nodes.beam_3_double005.material} position={[7.879, 123.936, 17.871]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_7002.geometry} material={nodes.beam_7002.material} position={[0, 115.932, 17.868]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.axels003.geometry} material={nodes.axels003.material} position={[-39.986, 132.462, -3.472]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3_cross005.geometry} material={nodes.beam_3_cross005.material} position={[-31.465, 132.462, 17.851]} rotation={[Math.PI / 2, 0, Math.PI]} />
-      <mesh geometry={nodes.beam_3_cross006.geometry} material={nodes.beam_3_cross006.material} position={[-48.204, 132.462, 2.5]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={nodes.pin_2_double002.geometry} material={nodes.pin_2_double002.material} position={[-39.986, 132.462, -21.243]} rotation={[Math.PI, 0, Math.PI]} />
-      <mesh geometry={nodes.axel_2004.geometry} material={nodes.axel_2004.material} position={[-32.253, 99.872, 2.136]} rotation={[0, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.axel_2005.geometry} material={nodes.axel_2005.material} position={[32.253, 99.872, 2.136]} rotation={[0, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_5004.geometry} material={nodes.beam_5004.material} position={[-39.853, 124.519, 2.5]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_9005.geometry} material={nodes.beam_9005.material} position={[0, 115.932, 2.262]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.pin_2_one_side001.geometry} material={nodes.pin_2_one_side001.material} position={[32.23, 86.344, 2.452]} rotation={[2.349, -0.093, 0.099]} />
-      <mesh geometry={nodes.pin_2_one_side002.geometry} material={nodes.pin_2_one_side002.material} position={[16.103, 113.091, 17.842]} rotation={[-2.348, 0.1, -3.05]} />
-      <mesh geometry={nodes.pin_2_one_side004.geometry} material={nodes.pin_2_one_side004.material} position={[32.23, 113.091, 2.2]} rotation={[-2.348, 0.1, -3.05]} />
-      <mesh geometry={nodes.pin_2_one_side005.geometry} material={nodes.pin_2_one_side005.material} position={[-31.871, 113.368, 2.2]} rotation={[-2.348, 0.1, -3.05]} />
-      <mesh geometry={nodes.pin_2_one_side006.geometry} material={nodes.pin_2_one_side006.material} position={[-32.121, 86.388, 2.083]} rotation={[2.349, -0.093, 0.099]} />
-      <mesh geometry={nodes.pin_sets001.geometry} material={nodes.pin_sets001.material} position={[-23.885, 124.074, 18.065]} rotation={[-0.794, -0.1, 0.091]} />
-      <mesh geometry={nodes.gyro.geometry} material={materials['Material.025']} position={[0, 140.139, 9.53]} rotation={[Math.PI / 2, 0, Math.PI]} />
-      <mesh geometry={nodes.gyro001.geometry} material={materials['Material.026']} position={[0, 140.139, 9.53]} rotation={[Math.PI / 2, 0, Math.PI]} />
-      <mesh geometry={nodes.gyro002.geometry} material={materials['Material.027']} position={[0, 140.139, 9.53]} rotation={[Math.PI / 2, 0, Math.PI]} />
-      <mesh geometry={nodes.beam9_connect_motor_drch.geometry} material={nodes.beam9_connect_motor_drch.material} position={[-16.126, 27.943, -45.74]} rotation={[0, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam9_connect_motor_izq.geometry} material={nodes.beam9_connect_motor_izq.material} position={[15.909, 27.943, -45.74]} rotation={[0, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam11.geometry} material={nodes.beam11.material} position={[0, 36.261, -85.68]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_2_cross.geometry} material={nodes.beam_2_cross.material} position={[8.206, 83.807, -113.232]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_2_cross001.geometry} material={nodes.beam_2_cross001.material} position={[-8.206, 83.807, -113.232]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3.geometry} material={nodes.beam_3.material} position={[39.748, 67.621, -93.232]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3001.geometry} material={nodes.beam_3001.material} position={[-39.748, 67.621, -93.232]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3002.geometry} material={nodes.beam_3002.material} position={[-47.853, 75.731, -93.232]} />
-      <mesh geometry={nodes.beam_3003.geometry} material={nodes.beam_3003.material} position={[47.852, 75.731, -93.232]} />
-      <mesh geometry={nodes.beam_3_cross001.geometry} material={nodes.beam_3_cross001.material} position={[31.723, 75.889, -92.737]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_3_cross002.geometry} material={nodes.beam_3_cross002.material} position={[-31.723, 75.889, -92.737]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_5.geometry} material={nodes.beam_5.material} position={[-39.752, 59.915, -101.206]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_5001.geometry} material={nodes.beam_5001.material} position={[39.752, 59.915, -101.206]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_7.geometry} material={nodes.beam_7.material} position={[17.45, 179.848, -109.742]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_9.geometry} material={nodes.beam_9.material} position={[0, 28.184, -85.68]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_13.geometry} material={nodes.beam_13.material} position={[0, 67.621, -85.518]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_15.geometry} material={nodes.beam_15.material} position={[0, 131.858, -109.742]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_lift_4.geometry} material={nodes.beam_lift_4.material} position={[-21.682, 34.881, -93.874]} rotation={[-Math.PI / 2, -Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_lift_4001.geometry} material={nodes.beam_lift_4001.material} position={[21.682, 34.881, -93.874]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.lift_arm_5.geometry} material={nodes.lift_arm_5.material} position={[11.342, 75.756, -96.663]} rotation={[0, 0, Math.PI]} />
-      <mesh geometry={nodes.lift_arm_5001.geometry} material={nodes.lift_arm_5001.material} position={[-11.342, 75.756, -96.663]} />
-      <mesh geometry={nodes.lift_arm_big.geometry} material={nodes.lift_arm_big.material} position={[-47.815, 27.958, -61.441]} rotation={[Math.PI, 0, Math.PI / 2]} />
-      <mesh geometry={nodes.lift_arm_big001.geometry} material={nodes.lift_arm_big001.material} position={[47.815, 27.958, -61.441]} rotation={[Math.PI, 0, Math.PI / 2]} />
-      <mesh geometry={nodes.pin_3_double.geometry} material={nodes.pin_3_double.material} position={[8.706, 179.798, -109.742]} />
-      <mesh geometry={nodes.pin_3_double001.geometry} material={nodes.pin_3_double001.material} position={[-8.706, 172.02, -109.742]} />
-      <mesh geometry={nodes.pin_3_double002.geometry} material={nodes.pin_3_double002.material} position={[26.232, 171.915, -109.742]} />
-      <mesh geometry={nodes.beam_7001.geometry} material={nodes.beam_7001.material} position={[0, 28.184, -101.838]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.Object291.geometry} material={materials['SOLID-LIGHT_BLUISH_GRAY']} position={[34.032, 167.458, -105.96]} rotation={[-Math.PI / 2, 0, 0]} scale={0.4} />
-      <mesh geometry={nodes.pin_2_one_side.geometry} material={nodes.pin_2_one_side.material} position={[-18.636, 172.02, -109.742]} rotation={[3.003, 0.794, -1.377]} />
-      <mesh geometry={nodes.light.geometry} material={materials['Material.013']} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
-      <mesh geometry={nodes.light001.geometry} material={materials['Material.014']} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
-      <mesh geometry={nodes.light002.geometry} material={materials['Material.015']} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
-      <mesh geometry={nodes.light003.geometry} material={materials['Material.016']} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
-      <mesh geometry={nodes.light004.geometry} material={materials['Material.017']} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
-      <mesh geometry={nodes.Object226.geometry} material={materials['Material.005']} position={[0, 20.047, -93.874]} rotation={[0, 0, Math.PI]} scale={[0.389, 0.39, 0.389]} />
-      <mesh geometry={nodes.Object254.geometry} material={materials['Material.012']} position={[0, 8.761, -93.874]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={0.389} />
-      <mesh geometry={nodes.axels001.geometry} material={nodes.axels001.material} position={[-20.397, -7.944, -109.742]} rotation={[-Math.PI, 0, -Math.PI]} />
-      <mesh geometry={nodes.beam_2_cross002.geometry} material={nodes.beam_2_cross002.material} position={[-40.118, 172.044, -105.459]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.beam_15003.geometry} material={nodes.beam_15003.material} position={[-40.118, 163.935, -53.33]} />
-      <mesh geometry={nodes.lift_arm_4.geometry} material={nodes.lift_arm_4.material} position={[-30.04, 155.937, -30.647]} rotation={[0, -Math.PI / 2, 0]} />
-      <mesh geometry={nodes.Object001.geometry} material={materials['SOLID-LIGHT_BLUISH_GRAY.003']} position={[-11.816, 151.483, -21.243]} rotation={[Math.PI, -Math.PI / 2, 0]} scale={0.4} />
-      <mesh geometry={nodes.Object002.geometry} material={materials['SOLID-LIGHT_BLUISH_GRAY.004']} position={[-8.11, 160.171, -9.489]} scale={0.4} />
-      <mesh geometry={nodes.pin_3_double003.geometry} material={nodes.pin_3_double003.material} position={[-16.175, 147.885, -29.269]} rotation={[0, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.Object003.geometry} material={materials['SOLID-LIGHT_BLUISH_GRAY.005']} position={[43.016, 131.923, -33.392]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} scale={0.4} />
-      <mesh geometry={nodes.pin_3_double004.geometry} material={nodes.pin_3_double004.material} position={[39.325, 139.872, -29.16]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.beam_3_double002.geometry} material={nodes.beam_3_double002.material} position={[39.224, 147.845, -21.11]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={nodes.beam_3_double003.geometry} material={nodes.beam_3_double003.material} position={[39.224, 147.845, -37.088]} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh geometry={nodes.axel_2001.geometry} material={nodes.axel_2001.material} position={[47.283, 147.856, -29.114]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.axels002.geometry} material={nodes.axels002.material} position={[31.129, 17.869, -10.158]} rotation={[0, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.pin_connectors001.geometry} material={nodes.pin_connectors001.material} position={[31.129, 154.632, -52.587]} rotation={[Math.PI / 2, -Math.PI / 2, 0]} />
-      <mesh geometry={nodes.pin_connectors002.geometry} material={nodes.pin_connectors002.material} position={[31.129, 154.632, -69.582]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.ultrasonic.geometry} material={materials['Material.006']} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.ultrasonic001.geometry} material={materials['Material.018']} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.ultrasonic002.geometry} material={materials['Material.019']} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.ultrasonic003.geometry} material={materials['Material.020']} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
-      <mesh geometry={nodes.ultrasonic004.geometry} material={materials['Material.021']} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.ultrasonic005.geometry} material={materials['Material.022']} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.ultrasonic006.geometry} material={materials['Material.023']} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes.ultrasonic007.geometry} material={materials['Material.024']} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-      <mesh geometry={nodes['4x_AA_Alkaline_15_V_Battery_Pack'].geometry} material={nodes['4x_AA_Alkaline_15_V_Battery_Pack'].material} position={[-4.175, 159.886, -71.32]} rotation={[-Math.PI / 2, 0, -Math.PI]} />
-      <mesh geometry={nodes['4x_AA_Alkaline_15_V_Battery_Pack001'].geometry} material={nodes['4x_AA_Alkaline_15_V_Battery_Pack001'].material} position={[-4.175, 159.886, -71.32]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.pin_2_one_side003.geometry} material={materials.Grey} position={[16.103, 102.398, 17.842]} rotation={[2.349, -0.093, 0.099]} />
+      <mesh geometry={nodes.BrickPi3.geometry} material={materials.Grey} position={[0, 111.451, -57.635]} scale={[34.5, 31.75, 47.6]} />
+      <mesh geometry={nodes.servo_motor.geometry} material={materials.White} position={[0, 45.411, -11.628]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.motor.geometry} material={materials.Grey} position={[31.903, 44.646, -52.354]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.motor003.geometry} material={materials.Grey} position={[-32.098, 44.646, -52.354]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.axel003.geometry} material={materials.Black} position={[0.2, 83.801, 37.896]} />
+      <mesh geometry={nodes.axel_3001.geometry} material={materials.Grey} position={[39.902, 71.31, 150.54]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.axel_3002.geometry} material={materials.Grey} position={[39.902, 71.31, 166.723]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.axel_3003.geometry} material={materials.Grey} position={[-39.902, 71.31, 166.723]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.axel_3004.geometry} material={materials.Grey} position={[-39.902, 71.31, 150.54]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam11002.geometry} material={materials.Dark_grey} position={[0, 67.709, -5.297]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam11003.geometry} material={materials.Dark_grey} position={[0, 67.621, 10.448]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3004.geometry} material={materials.Dark_grey} position={[-31.969, 67.621, -21.448]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3005.geometry} material={materials.Dark_grey} position={[31.969, 67.621, -21.448]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3006.geometry} material={materials.Dark_grey} position={[24.105, 83.841, 50.209]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3_cross003.geometry} material={materials.Dark_grey} position={[-16.21, 51.652, 42.743]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3_cross004.geometry} material={materials.Dark_grey} position={[16.21, 51.652, 42.743]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3_double.geometry} material={materials.Black} position={[-39.902, 51.377, -21.452]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3_double001.geometry} material={materials.Black} position={[39.902, 51.377, -21.452]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.lift_arm_5002.geometry} material={materials.Dark_grey} position={[-8.172, 55.017, 29.641]} rotation={[Math.PI, 0, Math.PI / 2]} />
+      <mesh geometry={nodes.lift_arm_5003.geometry} material={materials.Dark_grey} position={[8.172, 55.017, 29.641]} rotation={[Math.PI, 0, Math.PI / 2]} />
+      <mesh geometry={nodes.lift_arm_5005.geometry} material={materials.Dark_grey} position={[35.518, 83.807, 5.627]} rotation={[Math.PI, 0, Math.PI]} />
+      <mesh geometry={nodes.lift_arm_7.geometry} material={materials.Dark_grey} position={[-32.665, 59.459, 9.097]} rotation={[0, 0, Math.PI]} />
+      <mesh geometry={nodes.lift_arm_7001.geometry} material={materials.Dark_grey} position={[32.665, 59.459, 9.097]} />
+      <mesh geometry={nodes.lift_arm_7002.geometry} material={materials.Dark_grey} position={[6.65, 91.827, 25.184]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.pin_2_double.geometry} material={materials.Black} position={[-32.081, 83.807, 37.97]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.pin_2_double001.geometry} material={materials.Black} position={[32.081, 83.807, 37.97]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3008.geometry} material={materials.Dark_grey} position={[16.28, 83.877, -5.635]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_5002.geometry} material={materials.Dark_grey} position={[-32.081, 83.807, 10.289]} />
+      <mesh geometry={nodes.beam_9001.geometry} material={materials.Dark_grey} position={[-32.081, 75.756, 10.383]} />
+      <mesh geometry={nodes.beam_9002.geometry} material={materials.Dark_grey} position={[-24.018, 75.756, -37.75]} />
+      <mesh geometry={nodes.beam_9003.geometry} material={materials.Dark_grey} position={[32.081, 75.756, 10.383]} />
+      <mesh geometry={nodes.beam_9004.geometry} material={materials.Dark_grey} position={[24.018, 75.756, -37.75]} />
+      <mesh geometry={nodes.beam_5003.geometry} material={materials.Dark_grey} position={[0, 75.712, -5.297]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.axel_2002.geometry} material={materials.Grey} position={[0, 123.936, 25.872]} />
+      <mesh geometry={nodes.axel_2003.geometry} material={materials.Grey} position={[0, 123.936, 9.878]} />
+      <mesh geometry={nodes.beam_3_double004.geometry} material={materials.Black} position={[-7.879, 123.936, 17.871]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_3_double005.geometry} material={materials.Black} position={[7.879, 123.936, 17.871]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_7002.geometry} material={materials.Dark_grey} position={[0, 115.932, 17.868]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.axels003.geometry} material={materials.Black} position={[-39.986, 132.462, -3.472]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3_cross005.geometry} material={materials.Dark_grey} position={[-31.465, 132.462, 17.851]} rotation={[Math.PI / 2, 0, Math.PI]} />
+      <mesh geometry={nodes.beam_3_cross006.geometry} material={materials.Dark_grey} position={[-48.204, 132.462, 2.5]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.pin_2_double002.geometry} material={materials.Black} position={[-39.986, 132.462, -21.243]} rotation={[Math.PI, 0, Math.PI]} />
+      <mesh geometry={nodes.axel_2004.geometry} material={materials.Grey} position={[-32.253, 99.872, 2.136]} rotation={[0, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.axel_2005.geometry} material={materials.Grey} position={[32.253, 99.872, 2.136]} rotation={[0, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_5004.geometry} material={materials.Dark_grey} position={[-39.853, 124.519, 2.5]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_9005.geometry} material={materials.Dark_grey} position={[0, 115.932, 2.262]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.pin_2_one_side001.geometry} material={materials.Black} position={[32.23, 86.344, 2.452]} rotation={[2.349, -0.093, 0.099]} />
+      <mesh geometry={nodes.pin_2_one_side002.geometry} material={materials.Black} position={[16.103, 113.091, 17.842]} rotation={[-2.348, 0.1, -3.05]} />
+      <mesh geometry={nodes.pin_2_one_side004.geometry} material={materials.Black} position={[32.23, 113.091, 2.2]} rotation={[-2.348, 0.1, -3.05]} />
+      <mesh geometry={nodes.pin_2_one_side005.geometry} material={materials.Black} position={[-31.871, 113.368, 2.2]} rotation={[-2.348, 0.1, -3.05]} />
+      <mesh geometry={nodes.pin_2_one_side006.geometry} material={materials.Black} position={[-32.121, 86.388, 2.083]} rotation={[2.349, -0.093, 0.099]} />
+      <mesh geometry={nodes.pin_sets001.geometry} material={materials.Grey} position={[-23.885, 124.074, 18.065]} rotation={[-0.794, -0.1, 0.091]} />
+      <mesh geometry={nodes.gyro.geometry} material={materials.White} position={[0, 140.139, 9.53]} rotation={[Math.PI / 2, 0, Math.PI]} />
+      <mesh geometry={nodes.gyro001.geometry} material={materials.Red} position={[0, 140.139, 9.53]} rotation={[Math.PI / 2, 0, Math.PI]} />
+      <mesh geometry={nodes.gyro002.geometry} material={materials.Grey} position={[0, 140.139, 9.53]} rotation={[Math.PI / 2, 0, Math.PI]} />
+      <mesh geometry={nodes.beam9_connect_motor_drch.geometry} material={materials.Dark_grey} position={[-16.126, 27.943, -45.74]} rotation={[0, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam9_connect_motor_izq.geometry} material={materials.Dark_grey} position={[15.909, 27.943, -45.74]} rotation={[0, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam11.geometry} material={materials.Dark_grey} position={[0, 36.261, -85.68]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_2_cross.geometry} material={materials.Grey} position={[8.206, 83.807, -113.232]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_2_cross001.geometry} material={materials.Grey} position={[-8.206, 83.807, -113.232]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3.geometry} material={materials.Dark_grey} position={[39.748, 67.621, -93.232]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3001.geometry} material={materials.Dark_grey} position={[-39.748, 67.621, -93.232]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3002.geometry} material={materials.Dark_grey} position={[-47.853, 75.731, -93.232]} />
+      <mesh geometry={nodes.beam_3003.geometry} material={materials.Dark_grey} position={[47.852, 75.731, -93.232]} />
+      <mesh geometry={nodes.beam_3_cross001.geometry} material={materials.Grey} position={[31.723, 75.889, -92.737]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_3_cross002.geometry} material={materials.Dark_grey} position={[-31.723, 75.889, -92.737]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_5.geometry} material={materials.Dark_grey} position={[-39.752, 59.915, -101.206]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_5001.geometry} material={materials.Dark_grey} position={[39.752, 59.915, -101.206]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_7.geometry} material={materials.Dark_grey} position={[17.45, 179.848, -109.742]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_9.geometry} material={materials.Dark_grey} position={[0, 28.184, -85.68]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_13.geometry} material={materials.Dark_grey} position={[0, 67.621, -85.518]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_15.geometry} material={materials.Dark_grey} position={[0, 131.858, -109.742]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_lift_4.geometry} material={materials.Dark_grey} position={[-21.682, 34.881, -93.874]} rotation={[-Math.PI / 2, -Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_lift_4001.geometry} material={materials.Dark_grey} position={[21.682, 34.881, -93.874]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.lift_arm_5.geometry} material={materials.Dark_grey} position={[11.342, 75.756, -96.663]} rotation={[0, 0, Math.PI]} />
+      <mesh geometry={nodes.lift_arm_5001.geometry} material={materials.Dark_grey} position={[-11.342, 75.756, -96.663]} />
+      <mesh geometry={nodes.lift_arm_big.geometry} material={materials.Dark_grey} position={[-47.815, 27.958, -61.441]} rotation={[Math.PI, 0, Math.PI / 2]} />
+      <mesh geometry={nodes.lift_arm_big001.geometry} material={materials.Dark_grey} position={[47.815, 27.958, -61.441]} rotation={[Math.PI, 0, Math.PI / 2]} />
+      <mesh geometry={nodes.pin_3_double.geometry} material={materials.Grey} position={[8.706, 179.798, -109.742]} />
+      <mesh geometry={nodes.pin_3_double001.geometry} material={materials.Grey} position={[-8.706, 172.02, -109.742]} />
+      <mesh geometry={nodes.pin_3_double002.geometry} material={materials.Grey} position={[26.232, 171.915, -109.742]} />
+      <mesh geometry={nodes.beam_7001.geometry} material={materials.Dark_grey} position={[0, 28.184, -101.838]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.Object291.geometry} material={materials.Grey} position={[34.032, 167.458, -105.96]} rotation={[-Math.PI / 2, 0, 0]} scale={0.4} />
+      <mesh geometry={nodes.pin_2_one_side.geometry} material={materials.Black} position={[-18.636, 172.02, -109.742]} rotation={[3.003, 0.794, -1.377]} />
+      <mesh geometry={nodes.light.geometry} material={materials.Grey} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
+      <mesh geometry={nodes.light001.geometry} material={materials.White} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
+      <mesh geometry={nodes.light002.geometry} material={materials.Orange} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
+      <mesh geometry={nodes.light003.geometry} material={materials.Grey} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
+      <mesh geometry={nodes.light004.geometry} material={materials.Grey} position={[55.744, 63.751, -106.154]} rotation={[0, 0, Math.PI]} />
+      <mesh geometry={nodes.Object226.geometry} material={materials.Dark_grey} position={[0, 20.047, -93.874]} rotation={[0, 0, Math.PI]} scale={[0.389, 0.39, 0.389]} />
+      <mesh geometry={nodes.Object254.geometry} material={materials.Mirror} position={[0, 8.761, -93.874]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} scale={0.389} />
+      <mesh geometry={nodes.axels001.geometry} material={materials.Grey} position={[-20.397, -7.944, -109.742]} rotation={[-Math.PI, 0, -Math.PI]} />
+      <mesh geometry={nodes.beam_2_cross002.geometry} material={materials.Grey} position={[-40.118, 172.044, -105.459]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.beam_15003.geometry} material={materials.Dark_grey} position={[-40.118, 163.935, -53.33]} />
+      <mesh geometry={nodes.lift_arm_4.geometry} material={materials.Dark_grey} position={[-30.04, 155.937, -30.647]} rotation={[0, -Math.PI / 2, 0]} />
+      <mesh geometry={nodes.Object001.geometry} material={materials.Grey} position={[-11.816, 151.483, -21.243]} rotation={[Math.PI, -Math.PI / 2, 0]} scale={0.4} />
+      <mesh geometry={nodes.Object002.geometry} material={materials.Grey} position={[-8.11, 160.171, -9.489]} scale={0.4} />
+      <mesh geometry={nodes.pin_3_double003.geometry} material={materials.Grey} position={[-16.175, 147.885, -29.269]} rotation={[0, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.Object003.geometry} material={materials.Grey} position={[43.016, 131.923, -33.392]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} scale={0.4} />
+      <mesh geometry={nodes.pin_3_double004.geometry} material={materials.Grey} position={[39.325, 139.872, -29.16]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.beam_3_double002.geometry} material={materials.Black} position={[39.224, 147.845, -21.11]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.beam_3_double003.geometry} material={materials.Black} position={[39.224, 147.845, -37.088]} rotation={[Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.axel_2001.geometry} material={materials.Grey} position={[47.283, 147.856, -29.114]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.axels002.geometry} material={materials.Black} position={[31.129, 17.869, -10.158]} rotation={[0, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.pin_connectors001.geometry} material={materials.Grey} position={[31.129, 154.632, -52.587]} rotation={[Math.PI / 2, -Math.PI / 2, 0]} />
+      <mesh geometry={nodes.pin_connectors002.geometry} material={materials.Grey} position={[31.129, 154.632, -69.582]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.ultrasonic.geometry} material={materials.White} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.ultrasonic001.geometry} material={materials.Red} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.ultrasonic002.geometry} material={materials.Black} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.ultrasonic003.geometry} material={materials.Grey} position={[-24.122, 171.81, 8.424]} rotation={[Math.PI / 2, Math.PI / 2, 0]} />
+      <mesh geometry={nodes.ultrasonic004.geometry} material={materials.Grey} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.ultrasonic005.geometry} material={materials.Black} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.ultrasonic006.geometry} material={materials.Red} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.ultrasonic007.geometry} material={materials.White} position={[52.88, 163.803, -29.114]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+      <mesh geometry={nodes.battery_down.geometry} material={materials.Grey} position={[-4.175, 159.886, -71.32]} rotation={[-Math.PI / 2, 0, -Math.PI]} />
+      <mesh geometry={nodes.battery_down001.geometry} material={materials.Grey} position={[-4.175, 159.886, -71.32]} rotation={[Math.PI / 2, 0, 0]} />
     </group>
   )
 });
+
 
 useGLTF.preload('models/robot.glb')
