@@ -2,10 +2,13 @@
 import * as THREE from 'three'
 import { useState, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Grid, MeshReflectorMaterial } from '@react-three/drei';
+import { MeshReflectorMaterial } from '@react-three/drei';
 import { Robot } from '../../public/models/Robot';
 import UpdateCameraPosition from './UpdateCameraPosition';
 import MapComponent from './MapComponent';
+import { saveAs } from 'file-saver';
+import TrajectoryCharts from './TrajectoryChart';
+
 
 // Función para normalizar ángulos
 function normalizePi(angle) {
@@ -51,27 +54,25 @@ class RobotClass {
 
     this.basketRotation = Math.PI / 2; // Ángulo actual de la cesta en radianes
     this.basketSpeed = 0; // Velocidad del motor de la cesta en rad/s
-    this.targetbasketRotation = 0; // Ángulo objetivo de la cesta en radianes
+    this.targetbasketRotation = Math.PI / 2; // Ángulo objetivo de la cesta en radianes
   }
 
   setSpeed(v, w) {
-    if (this.wheelRadius > 0) {
-      const mat1 = [
-        [1 / this.wheelRadius, this.wheelDistance / (this.wheelRadius * 2)],
-        [1 / this.wheelRadius, -this.wheelDistance / (this.wheelRadius * 2)]
-      ];
+    const mat1 = [
+      [1 / this.wheelRadius, this.wheelDistance / (this.wheelRadius * 2)],
+      [1 / this.wheelRadius, -this.wheelDistance / (this.wheelRadius * 2)]
+    ];
 
-      const mat2 = [v, w];
+    const mat2 = [v, w];
 
-      const result = [
-        mat1[0][0] * mat2[0] + mat1[0][1] * mat2[1],
-        mat1[1][0] * mat2[0] + mat1[1][1] * mat2[1]
-      ];
+    const result = [
+      mat1[0][0] * mat2[0] + mat1[0][1] * mat2[1],
+      mat1[1][0] * mat2[0] + mat1[1][1] * mat2[1]
+    ];
 
-      this.rightWheelSpeed = result[0]; // Velocidad de la rueda derecha en rad/s
-      this.leftWheelSpeed = result[1]; // Velocidad de la rueda izquierda en rad/s
+    this.rightWheelSpeed = result[0]; // Velocidad de la rueda derecha en rad/s
+    this.leftWheelSpeed = result[1]; // Velocidad de la rueda izquierda en rad/s
 
-    }
   }
 
   setBasketTargetAngle(angle, time) {
@@ -129,9 +130,33 @@ class RobotClass {
       y: this.y,
       theta: normalizePi(this.theta - Math.PI / 2),
       leftWheelRotation: this.leftWheelRotation,
-      rightWheelRotation: this.rightWheelRotation,
-      basketRotation: this.basketRotation
+      basketRotation: this.basketRotation,
+      rightWheelRotation: this.rightWheelRotation
     };
+  }
+
+  logOdometry() {
+    let log = [];
+    let logging = true;
+
+    const logInterval = setInterval(() => {
+      if (!logging) {
+        clearInterval(logInterval);
+        return;
+      }
+      const currentP = { x: this.x, y: this.y, theta: this.theta };
+      const currentTime = new Date().getTime();
+      log.push(`${currentP.x} ${currentP.y} ${currentP.theta} ${currentTime}\n`);
+    }, 50);
+
+    // Función para detener el registro y guardar el archivo
+    const stopLoggingAndSave = () => {
+      logging = false;
+      const blob = new Blob(log, { type: "text/plain;charset=utf-8" });
+      saveAs(blob, "trajectory.txt");
+    };
+
+    return stopLoggingAndSave;
   }
 }
 
@@ -203,13 +228,9 @@ class PointFollower {
 }
 
 function updateRobotPosition(robotRef, rightWheelRef, leftWheelRef, basketRef, newPosition) {
+  robotRef.rotation.y = newPosition.theta;
   robotRef.position.x = newPosition.x * 10;
   robotRef.position.z = newPosition.y * 10;
-
-  // console.log('update robot pos: ' + robotRef.position.x + ' ' + robotRef.position.z);
-  robotRef.rotation.y = newPosition.theta;
-  // console.log("right: ", newPosition.rightWheelRotation);
-  // console.log("left: ", newPosition.leftWheelRotation);
   rightWheelRef.rotation.x = newPosition.rightWheelRotation;
   leftWheelRef.rotation.x = newPosition.leftWheelRotation;
   basketRef.rotation.x = newPosition.basketRotation;
@@ -217,7 +238,9 @@ function updateRobotPosition(robotRef, rightWheelRef, leftWheelRef, basketRef, n
 
 const RobotSimulation = () => {
   const init_direction = 180
-  const robot = new RobotClass(convertCoordinate(7), convertCoordinate(0), init_direction, 0.12223, 0.02731);
+  // const robot = new RobotClass(convertCoordinate(7), convertCoordinate(0), init_direction, 0.12223, 0.02731)
+  const [robot, setRobot] = useState(new RobotClass(convertCoordinate(7), convertCoordinate(0), init_direction, 0.12223, 0.02731));
+  // setRobot();
   const robotRefs = useRef({
     robot: null,
     rightWheel: null,
@@ -227,7 +250,18 @@ const RobotSimulation = () => {
   const [controller, setController] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
   const [map, setMap] = useState(null);
+  const cameraRef = useRef();
+  const [trajectory, setTrajectory] = useState(Array(51).fill([0, 0, 0, 0, 0]));
 
+
+  const updateCameraState = () => {
+    if (cameraRef.current) {
+      cameraRef.current.updateCameraState();
+    }
+  };
+
+
+  let stopLogging;
 
 
   const waypoints = [
@@ -256,18 +290,30 @@ const RobotSimulation = () => {
   const ka = W_MAX / (Math.PI / 4);
   const kb = W_MAX / (Math.PI / 2);
 
+
   useEffect(() => {
-    let interval;
-    if (isRunning && controller) {
-      interval = setInterval(() => {
+    let count = 0;
+    const interval = setInterval(() => {
+      if (isRunning && controller) {
         const { v, w } = controller.computeControl(robot);
         const newPosition = robot.move(v, w, 0.05);
 
+        updateCameraState();
         updateRobotPosition(robotRefs.current.robot, robotRefs.current.rightWheel, robotRefs.current.leftWheel, robotRefs.current.basket, newPosition);
-      }, 50);
-    }
+
+        if (count % 4 === 0) {
+          setTrajectory(prev => {
+            const newTrajectory = [...prev, [robot.x, robot.y, robot.theta, v, w]];
+            return newTrajectory.length > 51 ? newTrajectory.slice(-51) : newTrajectory;
+          });
+        }
+        count++;
+      }
+    }, 50);
+
     return () => clearInterval(interval);
   }, [isRunning, controller]);
+
 
   useEffect(() => {
     const handleBeforePrint = (event) => {
@@ -302,13 +348,16 @@ const RobotSimulation = () => {
   const startTrajectory = () => {
     setController(new TrajectoryFollower(waypoints, kp, ka, kb));
     setIsRunning(true);
+    // stopLogging = robot.logOdometry(); // Iniciar el registro de odometría
   };
 
   const moveToLocation = () => {
     const targetPoint = [0, 1.2, Math.PI / 2];
     setController(new PointFollower(targetPoint, kp, ka, kb));
     setIsRunning(true);
+    // stopLogging = robot.logOdometry(); // Iniciar el registro de odometría
   };
+
 
   return (
     <div>
@@ -334,7 +383,7 @@ const RobotSimulation = () => {
 
           {/* <OrbitControls /> */}
           <Robot ref={robotRefs} receiveShadow={true} castShadow={true} />
-          <UpdateCameraPosition robotRef={robotRefs.current.robot} map={map} />
+          <UpdateCameraPosition ref={cameraRef} robotRef={robotRefs.current.robot} map={map} />
           {/* "Behind" or "Front" or "Static" or "Zenithal" or "Wheel" or "Basket" */}
           <mesh scale={999} rotation={[-Math.PI / 2, 0, 0]} receiveShadow={true} castShadow={true}>
             <planeGeometry />
@@ -358,6 +407,7 @@ const RobotSimulation = () => {
           </mesh>
         </Canvas>
       </div>
+      <TrajectoryCharts trajectory={trajectory} />
     </div>
   );
 };

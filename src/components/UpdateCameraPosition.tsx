@@ -1,5 +1,7 @@
 import { useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { forwardRef } from "react";
+import { useEffect, useRef, useState, useImperativeHandle } from "react";
+import { Group } from 'three';
 
 
 // Función para normalizar ángulos
@@ -9,36 +11,44 @@ function normalizePi(angle) {
   return angle;
 }
 
-const UpdateCameraPosition = ({ robotRef, map }) => {
+type RobotProps = JSX.IntrinsicElements['group'] & {
+  // Aquí puedes añadir cualquier otra prop personalizada si es necesario
+};
+
+const UpdateCameraPosition = forwardRef(({ robotRef, map }, ref) => {
   const { camera } = useThree();
   const [robotPosition, setRobotPosition] = useState({ x: 0, y: 0, z: 0 });
   const [robotRotation, setRobotRotation] = useState({ y: 0 });
   const [typeCamera, setTypeCamera] = useState("Behind");
   const prevRobotState = useRef({ position: robotPosition, rotation: robotRotation });
 
-  useEffect(() => {
-    const updateRobotState = () => {
-      const { x, y, z } = robotRef.position;
-      const rotationY = robotRef.rotation.y;
+  const updateCameraState = () => {
+    const { x, y, z } = robotRef.position;
+    const rotationY = robotRef.rotation.y;
 
-      const positionChanged = x !== prevRobotState.current.position.x ||
-        y !== prevRobotState.current.position.y ||
-        z !== prevRobotState.current.position.z;
+    const positionChanged = x !== prevRobotState.current.position.x ||
+      y !== prevRobotState.current.position.y ||
+      z !== prevRobotState.current.position.z;
 
-      const rotationChanged = rotationY !== prevRobotState.current.rotation.y;
+    const rotationChanged = rotationY !== prevRobotState.current.rotation.y;
 
-      if ((positionChanged && rotationChanged) ||
-        (positionChanged && !rotationChanged) ||
-        (!positionChanged && rotationChanged)) {
-        setRobotPosition({ x, y, z });
-        setRobotRotation({ y: rotationY });
-        prevRobotState.current = { position: { x, y, z }, rotation: { y: rotationY } };
-      }
-    };
+    if ((positionChanged && rotationChanged) ||
+      (positionChanged && !rotationChanged) ||
+      (!positionChanged && rotationChanged)) {
+      setRobotPosition({ x, y, z });
+      setRobotRotation({ y: rotationY });
+      prevRobotState.current = { position: { x, y, z }, rotation: { y: rotationY } };
+    }
+  };
 
-    const interval = setInterval(updateRobotState, 50); // Ajusta el intervalo según tus necesidades
-    return () => clearInterval(interval);
-  }, [robotRef]);
+  // useEffect(() => {
+  //   const interval = setInterval(updateCameraState, 0); // Ajusta el intervalo según tus necesidades
+  //   return () => clearInterval(interval);
+  // }, [robotRef]);
+
+  useImperativeHandle(ref, () => ({
+    updateCameraState,
+  }));
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -62,6 +72,10 @@ const UpdateCameraPosition = ({ robotRef, map }) => {
   }, []);
 
   useEffect(() => {
+    // if (robotRef) {
+    //   updateRobotState()
+    // }
+
 
     if (typeCamera === "Behind") {
       const radius = 3.5; // Define el radio de la órbita
@@ -106,9 +120,10 @@ const UpdateCameraPosition = ({ robotRef, map }) => {
       camera.up.set(0, 1, 0);
       camera.lookAt(robotPosition.x, distance_from_floor - 0.1, robotPosition.z);
     }
-  }, [robotPosition, robotRotation, typeCamera]);
+  }, [robotPosition, robotRotation, robotRef, typeCamera]);
 
   return;
-};
+});
+
 
 export default UpdateCameraPosition;

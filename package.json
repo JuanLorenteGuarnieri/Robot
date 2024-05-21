@@ -16,16 +16,19 @@
     "@emailjs/browser": "^3.11.0",
     "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.93.0",
-    "@react-three/fiber": "^8.15.13",
+    "@react-three/fiber": "^8.16.6",
+    "chart.js": "^4.4.3",
     "dependencies": "^0.0.1",
+    "file-saver": "^2.0.5",
     "framer-motion": "^10.17.9",
     "maath": "^0.10.7",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
     "react-tilt": "^1.0.2",
     "react-vertical-timeline-component": "^3.6.0",
-    "three": "^0.160.0"
+    "three": "^0.160.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
