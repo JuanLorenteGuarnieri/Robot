@@ -9,6 +9,111 @@ import MapComponent from './MapComponent';
 import { saveAs } from 'file-saver';
 import TrajectoryCharts from './TrajectoryChart';
 
+function normalizarVector(dx, dy) {
+  const longitud = Math.sqrt(dx * dx + dy * dy);
+  return { dx: dx / longitud, dy: dy / longitud };
+}
+
+function encontrarInterseccion(x0_1, y0_1, dx1, dy1, x0_2, y0_2, dx2, dy2, maxDistancia) {
+  // Normalizamos los vectores de dirección
+  const v1 = normalizarVector(dx1, dy1);
+  const v2 = normalizarVector(dx2, dy2);
+
+  dx1 = v1.dx;
+  dy1 = v1.dy;
+  dx2 = v2.dx;
+  dy2 = v2.dy;
+
+  // Determinamos los parámetros de las líneas
+  const a1 = dy1;
+  const b1 = -dx1;
+  const c1 = a1 * x0_1 + b1 * y0_1;
+
+  const a2 = dy2;
+  const b2 = -dx2;
+  const c2 = a2 * x0_2 + b2 * y0_2;
+
+  // Calculamos el determinante
+  const det = a1 * b2 - a2 * b1;
+
+  // Comprobamos si las líneas son paralelas
+  if (det === 0) {
+    if (c1 === c2) {
+      return "Las líneas son coincidentes.";
+    } else {
+      return "Las líneas son paralelas y no se intersectan.";
+    }
+  }
+
+  // Calculamos el punto de intersección
+  const x = (b2 * c1 - b1 * c2) / det;
+  const y = (a1 * c2 - a2 * c1) / det;
+
+  // Calculamos el parámetro t para la segunda línea
+  const t = ((x - x0_2) / dx2);
+
+  // Comprobamos si el punto de intersección está en la dirección correcta
+  if (t < 0) {
+    return "La intersección está en la dirección contraria.";
+  }
+
+  // Calculamos la distancia desde el segundo punto al punto de intersección
+  const distancia = Math.sqrt((x - x0_2) * (x - x0_2) + (y - y0_2) * (y - y0_2));
+
+  // Comprobamos si la distancia desde el primer punto es mayor que la distancia máxima permitida
+  const distanciaDesdePrimerPunto = Math.sqrt((x - x0_1) * (x - x0_1) + (y - y0_1) * (y - y0_1));
+  if (distanciaDesdePrimerPunto > maxDistancia) {
+    return "No hay intersección dentro de la distancia permitida.";
+  }
+
+  return { x: x, y: y, distancia: distancia };
+}
+
+
+const getDistanceToNearestWall = (x, y, orientation, walls) => {
+  console.log("input X: ", x, " Y: ", y, " TH: ", orientation, " walls: ", walls)
+  let minDistance = Infinity;
+  let closestWall = null;
+
+  // Convert orientation from radians to a unit vector
+  const dirX = -Math.cos(orientation);
+  const dirY = Math.sin(orientation);
+  console.log("dir: ", dirX, dirY)
+  console.log("comprobar n paredes: ", walls.length)
+
+  walls.forEach(wall => {
+    const wallX = wall.position[0];
+    const wallY = wall.position[2];
+
+    // Determine the type of wall (horizontal or vertical)
+    const isHorizontal = wall.rotation[0] === Math.PI / 2;
+
+    let wallLength = wall.size[0];
+
+    if (isHorizontal) {
+      // Calculate intersection with horizontal wall
+      const { a, b, distancia } = encontrarInterseccion(wallX, wallY, 0, 1, x, y, dirX, dirY, wallLength / 2)
+      if (distancia < minDistance) {
+        minDistance = distancia;
+        closestWall = wall;
+      }
+    } else {
+      // Calculate intersection with vertical wall
+      const { a, b, distancia } = encontrarInterseccion(wallX, wallY, 1, 0, x, y, dirX, dirY, wallLength / 2)
+      if (distancia < minDistance) {
+        minDistance = distancia;
+        closestWall = wall;
+      }
+    }
+  });
+
+  if (closestWall) {
+    console.log('Closest wall position:', closestWall.position);
+    console.log('robot position: ', x, y, orientation);
+  }
+
+  return minDistance === Infinity ? -1 : minDistance;
+};
 
 // Función para normalizar ángulos
 function normalizePi(angle) {
@@ -88,6 +193,28 @@ class RobotClass {
   // Función específica para ajustar la cesta a 180 grados en un tiempo determinado
   lowerBasket(time) {
     this.setBasketTargetAngle(180, time);
+  }
+
+  turnRight() {
+    this.theta = normalizePi(this.theta + 0.1);
+  }
+
+  turnLeft() {
+    this.theta = normalizePi(this.theta - 0.1);
+  }
+
+  forward() {
+    const dx = 0.1 * Math.cos(this.theta);
+    const dy = 0.1 * Math.sin(this.theta);
+    this.x += dx;
+    this.y += dy;
+  }
+
+  backward() {
+    const dx = 0.1 * Math.cos(this.theta);
+    const dy = 0.1 * Math.sin(this.theta);
+    this.x -= dx;
+    this.y -= dy;
   }
 
   move(v, w, dt) {
@@ -252,6 +379,8 @@ const RobotSimulation = () => {
   const [map, setMap] = useState(null);
   const cameraRef = useRef();
   const [trajectory, setTrajectory] = useState(Array(51).fill([0, 0, 0, 0, 0]));
+  const [targetPoint, setTargetPoint] = useState([0, 1.2, Math.PI / 2]);
+
 
 
   const updateCameraState = () => {
@@ -261,7 +390,19 @@ const RobotSimulation = () => {
   };
 
 
-  let stopLogging;
+  const [walls, setWalls] = useState([]);
+
+  const handleWallsUpdate = (newWalls) => {
+    console.log("update_walls");
+    setWalls(newWalls);
+  };
+
+  // Ejemplo de uso de la función para calcular la distancia
+  const calculateDistance = (x, y, orientation) => {
+    const distance = getDistanceToNearestWall(-x * 10, y * 10, orientation, walls);//normalizePi(orientation - Math.PI / 2), walls);
+    console.log("Distancia más cercana a la pared:", distance);
+    return distance;
+  };
 
 
   const waypoints = [
@@ -314,6 +455,13 @@ const RobotSimulation = () => {
     return () => clearInterval(interval);
   }, [isRunning, controller]);
 
+  useEffect(() => {
+    if (isRunning) {
+      setController(new PointFollower(targetPoint, kp, ka, kb));
+    }
+  }, [isRunning, targetPoint, kp, ka, kb]);
+
+
 
   useEffect(() => {
     const handleBeforePrint = (event) => {
@@ -333,7 +481,30 @@ const RobotSimulation = () => {
         robot.lowerBasket(1);
       } else if (event.key === 'Shift') {
         robot.raiseBasket(1);
+      } else if (event.key === 'd') {
+        robot.turnLeft();
+      } else if (event.key === 'a') {
+        robot.turnRight();
+      } else if (event.key === 'w') {
+        robot.forward();
+      } else if (event.key === 's') {
+        robot.backward();
       }
+      // setTargetPoint(prevTargetPoint => {
+      //   const [x, y, theta] = prevTargetPoint;
+      //   switch (event.key) {
+      //     case 'w':
+      //       return [x, y + 0.1, theta]; // Mover hacia arriba
+      //     case 's':
+      //       return [x, y - 0.1, theta]; // Mover hacia abajo
+      //     case 'a':
+      //       return [x - 0.1, y, theta]; // Mover hacia la izquierda
+      //     case 'd':
+      //       return [x + 0.1, y, theta]; // Mover hacia la derecha
+      //     default:
+      //       return prevTargetPoint;
+      //   }
+      // });
     };
 
     window.addEventListener('beforeprint', handleBeforePrint);
@@ -352,7 +523,6 @@ const RobotSimulation = () => {
   };
 
   const moveToLocation = () => {
-    const targetPoint = [0, 1.2, Math.PI / 2];
     setController(new PointFollower(targetPoint, kp, ka, kb));
     setIsRunning(true);
     // stopLogging = robot.logOdometry(); // Iniciar el registro de odometría
@@ -361,8 +531,8 @@ const RobotSimulation = () => {
 
   return (
     <div>
-      {/* <button onClick={startTrajectory}>Start Trajectory</button>
-      <button onClick={moveToLocation}>Move to Point</button> */}
+      <button onClick={() => calculateDistance(robot.x, robot.y, robot.theta)}>Calcular distancia</button>
+
       <div className="CanvasContainer" style={{ background: 'black' }}>
         <Canvas
           shadows={true}  // Habilita el cálculo de sombras en el canvas
@@ -370,7 +540,7 @@ const RobotSimulation = () => {
           near={0.1} far={1000}
         >
           {/* <MapComponent mapDescriptionFile="public\maps\mapa_CARRERA.txt" map={map} setMap={setMap} /> */}
-          <MapComponent mapDescriptionFile="public\maps\mapa_CARRERA.txt" map={map} setMap={setMap} />
+          <MapComponent mapDescriptionFile="public\maps\mapa3.txt" map={map} setMap={setMap} onWallsUpdate={handleWallsUpdate} />
 
           <pointLight castShadow={true} position={[-200, 100, 0]} intensity={35} decay={0.8}
             shadow-bias={-0.005} />
